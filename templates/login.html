@@ -1,0 +1,36 @@
+{% extends 'base.html' %}    
+{% load static %}
+{% block content %}
+<!-- Login -->
+<div class="container">
+    <div class="login-form">
+      <form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- {% if messages %}
+          <div>
+            {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+          </div>
+          {% endif %} -->
+        <h1>Login</h1>
+        <p>
+          Already have an account? Login in or
+          <a href="{% url 'account' %}">Sign Up</a>
+        </p>
+
+        <input type="text" placeholder="Enter Email" name="email" required />
+
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          required
+        />
+        <div class="buttons">
+          <button type="submit" class="signupbtn">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

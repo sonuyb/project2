@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block header %}
+{% endblock %}
+{% load totalsum %}
+{% block content %}
+<h4>Credit or debit card</h4>
+<h4>UPI Apps</h4>
+<h4>Net Bankings</h4>
+<h3>payable amount: ₹{{ total }}</h3>
+<h3>address: {{ order_obj.address }}</h3>
+<form method="post" action="{% url 'payment' order_obj.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+<button class="checkout btn" type="submit">Make Payment</button>
+</form>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

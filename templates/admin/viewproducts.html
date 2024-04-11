@@ -1,0 +1,35 @@
+{% extends 'admin/adminbase.html' %}  
+{% block content %}
+<div class="main-content">
+    <h3>view</h3>
+
+    <table border ='1'>
+        <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Priority</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Edit/Delete</th>
+  
+        </tr>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.description }}</td>
+          <td><img src="{{ product.image.url }}" alt="" style="max-width: 100px; max-height: 100px;" /></td>
+          <td>{{ product.priority }}</td>
+          <td>{{ product.created_at }}</td>
+          <td>{{ product.updated_at }}</td>
+          <td><a href="{% url 'edit' product.id %}">edit</a>/<a href="{% url 'delete' product.id %}">delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+</div>
+{% endblock %}

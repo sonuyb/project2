@@ -1,0 +1,10 @@
+{% extends 'admin/adminbase.html' %}  
+
+{% block content %}
+<div class="main-content">
+    <ul>
+        <li><a href="{% url 'add_products' %}">Add Products</a></li>
+        <li><a href="{% url 'view_products' %}">View Products</a></li>
+    </ul>
+</div>
+{% endblock %}

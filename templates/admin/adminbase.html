@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Admin</title>
+    <script>
+        const navItems = document.querySelectorAll('.side-nav__item');
+const removeClasses = () => {
+  navItems.forEach(eachItem => {
+    eachItem.classList.remove('side-nav__item-active');
+  });
+}
+
+navItems.forEach(eachItem => {
+  eachItem.addEventListener('click', function() {
+      removeClasses();
+    eachItem.classList.add('side-nav__item-active');
+  });
+});
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
+    datasets: [{
+      label: 'Expense',
+      data: [11, 3, 14, 7, 4, 15, 7, 9, 15, 13, 7, 14],
+      borderWidth: 1,
+      borderRadius: 30,
+      barThickness: 12,
+      backgroundColor: [
+        'rgba(114, 92, 255, 1)'
+      ],
+      borderColor: [
+        'rgba(114, 92, 255, 1)'
+      ],
+      hoverBackgroundColor: [
+        'rgba(28, 30, 35, 1)'
+      ],
+      hoverBorderColor: [
+        'rgba(28, 30, 35, 1)'
+      ],
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+            // Include a dollar sign in the ticks
+            callback: function(value, index, ticks) {
+                return '$' + value + 'k';
+            },
+            stepSize: 5,
+        },
+      },
+      x: {
+        grid: {
+            display: false
+        }
+      }
+    },
+    plugins: {
+        legend: {
+          display:false,
+          labels: {
+            font: {
+                size: 12,
+                family: "'Plus Jakarta Sans', sans-serif",
+                lineHeight: 18,
+                weight: 600
+            }
+          }
+        }
+    }
+  }
+});
+
+const ctx2 = document.getElementById('myChart2');
+
+new Chart(ctx2, {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      label: 'Overall Spending',
+      data: [8000, 2130, 1510, 2245, 4385, 1000],
+      borderRadius: 5,
+      cutout: 80,
+      backgroundColor: [
+        'rgb(235, 124, 166)',
+        'rgb(255, 172, 200)',
+        'rgb(204, 111, 248)',
+        'rgb(124, 92, 252)',
+        'rgb(92, 175, 252)',
+        'rgb(161, 169, 254)'
+      ],
+      hoverOffset: 4,
+      spacing: 8
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false
+      }
+    }
+  }
+});
+
+    </script>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    height: 100vh;
+}
+
+/* -------------- CONTAINER -------------- */
+.container {
+    display: flex;
+    height: 100%;
+}
+
+/* -------------- SIDEBAR -------------- */
+.sidebar {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: space-between;
+    border-right: 1px solid #F3F5F7;
+    padding: 0 16px;
+    overflow: auto;
+}
+
+.sidebar__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0 56px -30px;
+}
+
+.sidebar__logo-header {
+    margin-left: 14px;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.side-nav__header {
+    font-size: 14px;
+    line-height: 21px;
+    color: #90A3BF;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.side-nav__header, .side-nav__item > span {
+    letter-spacing: -2%;
+    font-weight: 500;
+}
+
+.side-nav__item {
+    list-style: none;
+    color: #596780;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0 14px 16px;    
+    border-radius: 10px;
+    transition: all .4s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.side-nav__item > svg {
+  flex-shrink: 0;
+}
+
+.side-nav__item.last-item {
+    margin-bottom: 32px;
+}
+
+.side-nav__item:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.side-nav__item:hover,  .side-nav__item-active {
+    background-color: #7C5CFC;
+    color: white;
+}
+
+/* -------------- MAIN CONTENT -------------- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: auto;
+}
+
+/* -------------- TOP CONTAINER -------------- */
+.top-container {
+    border-bottom: 1px solid #F3F5F7;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* -------------- SEARCH -------------- */
+.search {
+    display: flex;
+    align-items: center;
+    padding: 11px 0 11px 24px;
+    max-width: 492px;
+    width: 100%;
+    border: 1px solid #C3D4E9;
+    border-radius: 70px;
+    gap: 26px;
+    background: #FFFFFF;
+    opacity: 0.8;
+}
+
+.search__input {
+    border: none;
+    outline: none;
+    width: calc(100% - 78px);
+}
+
+/* -------------- USER NAV -------------- */
+.user-nav, .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    margin: 0 37px 0 12px;
+}
+
+.user-image {
+    height: 44px;
+    width: 44px;
+}
+
+/* -------------- NOTIFICATION -------------- */
+.notification {
+    border: 1px solid #C3D4E9;
+    background-color: transparent;
+    position: relative;
+    margin-right: 32px;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    top: -2px;
+    right: 3px;
+}
+
+/* -------------- BOTTOM CONTAINER -------------- */
+.bottom-container {
+    display: flex;
+    gap: 24px;
+    padding: 32px;
+    background-color: #F3F5F7;
+}
+
+.box {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px; /*fix later*/
+}
+
+.bottom-container__left {
+    width: 70%;
+}
+
+.bottom-container__right {
+    width: 30%;
+}
+
+.spending-statistics {
+    max-height: 338px;
+}
+
+/* -------------- BAR CHART -------------- */
+.bar-chart {
+    max-height: 223px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* -------------- HEADER -------------- */
+.header-container {
+    color: #1A202C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+    font-weight: 600;
+    letter-spacing: -2%;
+}
+
+.section-header {
+    line-height: 24px;
+    font-size: 16px;
+}
+
+.header-container span {
+    line-height: 21px;
+    font-size: 14px;
+}
+
+.year-selector {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.total-box {
+    display: flex;
+}
+
+.total-box__left {
+    border-right: 1px solid #F0F0F0;
+    flex: 1;
+}
+
+.total-box__right {
+    flex: 1;
+}
+
+.up-arrow, .total-box__left {
+    margin-right: 24px;
+}
+
+.price {
+    line-height: 150%;
+    margin-bottom: 14px;
+}
+
+.price-currency {
+    line-height: 21px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #90A3BF;
+    margin-left: 8px;
+}
+
+.total-box p, .box p {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.02em;
+    color: #90A3BF;
+}
+
+.percentage-increase {
+    color: #7FB519;
+}
+
+.percentage-decrease {
+    color: #FF4423;
+}
+
+.date-selector {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #C3D4E9;
+    border-radius: 6px;
+}
+
+.date-selector span {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: 8px;
+}
+
+.transaction-box {
+   margin-bottom: 0; 
+}
+
+.transaction-history {
+    width: 100%;
+    text-align: left;
+    vertical-align: middle;
+    margin-top: 24px;
+}
+
+/* -------------- TABLE -------------- */
+tr > th {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+    color: #90A3BF;
+    padding-bottom: 24px;
+}
+
+tr > td {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -2%;
+    padding: 8px 0;
+}
+
+tr > td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.status {
+    margin-right: 8px;
+}
+
+/* -------------- BUTTON -------------- */
+.button-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 56px;
+}
+
+.btn {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-purple {
+    background-color: #7C5CFC;
+    color: white;
+}
+
+.btn-white {
+    background-color: white;
+    color: black;
+    border: 2px solid #7C5CFC;
+}
+
+/* -------------- PIE CHART -------------- */
+.pie-chart {
+    height: 220px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spending-box {
+    position: relative;
+}
+
+.overall-spending {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 32%;
+    left: 50%;
+    text-align: center;
+}
+
+.overall-spending > h4 {
+    color: #596780;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.overall-spending > span {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+}
+
+.pie-chart__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 40px;
+}
+
+.pie-chart__labels-item {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.pie-chart__labels-item, .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    gap: 12px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    color: #596780;
+} 
+
+.label__color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.first {
+    background: #EB7CA6;
+}
+
+.second {
+    background: #FFACC8;
+}
+
+.third {
+    background: #CC6FF8;
+}
+
+.fourth {
+    background: #7C5CFC;
+}
+
+.fifth {
+    background: #5CAFFC;
+}
+
+.sixth {
+    background: #A1A9FE;
+}
+
+@media (max-width: 1300px) {
+    .bottom-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .bottom-container__left, .bottom-container__right {
+        width: 100%;
+    }
+    
+  .btn {
+    width: 45%;
+  }
+}
+
+@media(max-width: 900px) {
+  .top-container {
+        gap: 24px;
+    }
+    .total-box {
+        flex-direction: column;
+    }
+
+    .total-box__left {
+        margin-right: 0;
+        border-right: none;
+        border-bottom: 1px solid #F3F5F7;
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+    }
+
+    .up-arrow {
+        margin-right: 0;
+    }
+}
+
+@media(max-width: 780px) {
+    .top-container {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .user-nav {
+        justify-content: space-between;
+    }
+
+    .section-header {
+        font-size: 18px;
+    }
+
+    table, tbody, th, td, tr { 
+		display: block; 
+	}
+
+    tr > th {
+        position: absolute;
+		top: -9999px;
+		left: -9999px;
+    }
+
+    td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #F3F5F7; 
+		position: relative;
+		padding-left: 50%; 
+	}
+
+    td::before {
+        position: absolute;
+        left: 0;
+    }
+
+    tr > td {
+        text-align: end;
+    }
+
+    tr > td:first-child {
+        justify-content: end;
+    }
+
+    td:nth-of-type(1):before { content: "Transactions"; }
+    td:nth-of-type(2):before { content: "Date"; }
+    td:nth-of-type(3):before { content: "Amount"; }
+    td:nth-of-type(4):before { content: "Status"; }
+
+    .total-box p, .box p {
+        font-size: 14px;
+    }
+
+    .pie-chart__labels-item {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    
+    .year-selector {
+      gap: 12px;
+    }
+    
+    .button-box {
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    
+    .btn {
+        width: 100%;
+        font-size: 15px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<body>
+    <div class="container">
+        <nav class="sidebar">            
+            <div>
+                <div class="sidebar__logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_129_9347)">
+                        <path d="M19.5386 23.4366C19.3904 23.5849 19.2144 23.7025 19.0208 23.7828C18.8271 23.863 18.6195 23.9043 18.4099 23.9043C18.2003 23.9043 17.9927 23.863 17.799 23.7828C17.6053 23.7025 17.4294 23.5849 17.2812 23.4366L8.09921 14.2561C6.77491 12.9048 6.03741 11.0854 6.04697 9.19342C6.05652 7.30139 6.81236 5.48959 8.15024 4.15171C9.48812 2.81383 11.2999 2.05799 13.192 2.04843C15.084 2.03888 16.9033 2.77638 18.2547 4.10067L24.0578 9.90378C24.3563 10.2039 24.5235 10.6103 24.5224 11.0337C24.5213 11.457 24.3521 11.8626 24.052 12.1612C23.7518 12.4598 23.3454 12.6269 22.9221 12.6258C22.4987 12.6247 22.0931 12.4555 21.7945 12.1554L15.9987 6.35228C15.2499 5.60352 14.2344 5.18287 13.1755 5.18287C12.1166 5.18287 11.101 5.60352 10.3523 6.35228C9.6035 7.10104 9.18285 8.11658 9.18285 9.17549C9.18285 10.2344 9.6035 11.2499 10.3523 11.9987L19.5342 21.1807C19.8338 21.4793 20.0026 21.8847 20.0034 22.3078C20.0042 22.7308 19.837 23.1368 19.5386 23.4366Z" fill="#7C5CFC"/>
+                        <path d="M24.0012 27.8992C22.6533 29.2436 20.8272 29.9987 18.9234 29.9987C17.0197 29.9987 15.1936 29.2436 13.8457 27.8992L8.04986 22.0961C7.88902 21.951 7.75941 21.7747 7.66891 21.5779C7.57841 21.3811 7.52892 21.1679 7.52346 20.9514C7.51799 20.7348 7.55667 20.5194 7.63713 20.3183C7.71758 20.1172 7.83814 19.9346 7.99145 19.7816C8.14477 19.6286 8.32762 19.5084 8.52889 19.4283C8.73015 19.3482 8.94561 19.31 9.16214 19.3158C9.37867 19.3217 9.59173 19.3716 9.78835 19.4625C9.98497 19.5534 10.161 19.6833 10.3058 19.8445L16.1017 25.6476C16.8516 26.3875 17.8637 26.8008 18.9172 26.7972C19.9707 26.7937 20.98 26.3737 21.7249 25.6287C22.4698 24.8838 22.8899 23.8745 22.8934 22.821C22.8969 21.7675 22.4837 20.7554 21.7437 20.0055L12.5618 10.8192C12.2624 10.5198 12.0942 10.1138 12.0942 9.69047C12.0942 9.26712 12.2624 8.86111 12.5618 8.56176C12.8611 8.26241 13.2671 8.09424 13.6905 8.09424C14.1138 8.09424 14.5198 8.26241 14.8192 8.56176L24.0012 17.7437C25.346 19.0914 26.1013 20.9176 26.1013 22.8215C26.1013 24.7253 25.346 26.5515 24.0012 27.8992Z" fill="#7C5CFC"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_129_9347">
+                        <rect width="20.1005" height="28" fill="currentColor" transform="translate(6 2)"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                    <h2 class="sidebar__logo-header">Admin</h2>    
+                </div>
+                <ul class="side-nav"> </a>
+                    <li class="side-nav__item side-nav__item-active" > <a href="{% url 'dash' %}" >
+                        <svg width="22" height="23" viewBox="0 0 22 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.23201 3.4202L9.23239 3.41989C10.2108 2.63408 11.7843 2.63834 12.7781 3.42994C12.7783 3.43005 12.7784 3.43015 12.7785 3.43025L18.7784 8.2301C18.7789 8.23054 18.7795 8.23099 18.78 8.23143C19.1189 8.50835 19.4146 8.94381 19.6058 9.44415C19.7968 9.94409 19.8672 10.4662 19.8014 10.8985L18.6475 17.8037C18.6474 17.8042 18.6473 17.8047 18.6472 17.8052C18.4217 19.0989 17.1608 20.1667 15.8585 20.1667H6.1418C4.81982 20.1667 3.58766 19.1252 3.36227 17.8148C3.36221 17.8145 3.36215 17.8142 3.36209 17.8138L2.20746 10.9043L2.20726 10.9032C2.13345 10.4677 2.19947 9.94466 2.39002 9.44498C2.58055 8.94535 2.87982 8.51038 3.22697 8.2334L3.22784 8.2327L9.23201 3.4202ZM11.0001 18.1876C11.6521 18.1876 12.1876 17.652 12.1876 17.0001V14.2501C12.1876 13.5981 11.6521 13.0626 11.0001 13.0626C10.3482 13.0626 9.81263 13.5981 9.81263 14.2501V17.0001C9.81263 17.652 10.3482 18.1876 11.0001 18.1876Z" fill="currentColor" stroke="currentColor"/>
+                        </svg>                       
+                        <span>Dashboard</span>
+                    </a>
+                    </li>
+                    <li class="side-nav__item"> <a href="{% url 'products' %}" >
+                        <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.30664 17.1375V15.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M11 17.1375V13.3425" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M15.6934 17.1375V11.4358" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M15.6933 5.86255L15.2716 6.35755C12.9341 9.08922 9.79914 11.0234 6.30664 11.8942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M13.0073 5.86255H15.6932V8.53922" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.25016 20.6667H13.7502C18.3335 20.6667 20.1668 18.8334 20.1668 14.25V8.75004C20.1668 4.16671 18.3335 2.33337 13.7502 2.33337H8.25016C3.66683 2.33337 1.8335 4.16671 1.8335 8.75004V14.25C1.8335 18.8334 3.66683 20.6667 8.25016 20.6667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>                       
+                        <span>Product Management</span>
+                    </a>
+                    </li>
+                    <li class="side-nav__item"> <a href="{% url 'allorders' %}" >
+                        <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.30664 17.1375V15.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M11 17.1375V13.3425" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M15.6934 17.1375V11.4358" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M15.6933 5.86255L15.2716 6.35755C12.9341 9.08922 9.79914 11.0234 6.30664 11.8942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M13.0073 5.86255H15.6932V8.53922" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.25016 20.6667H13.7502C18.3335 20.6667 20.1668 18.8334 20.1668 14.25V8.75004C20.1668 4.16671 18.3335 2.33337 13.7502 2.33337H8.25016C3.66683 2.33337 1.8335 4.16671 1.8335 8.75004V14.25C1.8335 18.8334 3.66683 20.6667 8.25016 20.6667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>                       
+                        <span>Order Management</span>
+                    </a>
+                    </li> 
+                    </li>
+                </ul>
+            </div>                      
+    <p>
+        <li class="side-nav__item"> <a href="{% url 'logout' %}" >
+            <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.30664 17.1375V15.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M11 17.1375V13.3425" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M15.6934 17.1375V11.4358" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M15.6933 5.86255L15.2716 6.35755C12.9341 9.08922 9.79914 11.0234 6.30664 11.8942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M13.0073 5.86255H15.6932V8.53922" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.25016 20.6667H13.7502C18.3335 20.6667 20.1668 18.8334 20.1668 14.25V8.75004C20.1668 4.16671 18.3335 2.33337 13.7502 2.33337H8.25016C3.66683 2.33337 1.8335 4.16671 1.8335 8.75004V14.25C1.8335 18.8334 3.66683 20.6667 8.25016 20.6667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>                       
+            <span>Log out</span>
+        </a>
+        </li>
+
+        
+      </p> 
+      </nav>
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</body>
+</html>

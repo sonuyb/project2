@@ -1,0 +1,39 @@
+{% extends 'admin/adminbase.html' %}  
+{% block content %}
+<div class="main-content">
+    <h3>All Orders</h3>
+
+    <table border ='1'>
+        <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>view</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.owner }}</td>
+          <td>{{ order.owner.address }}</td>
+          <td>{{ order.total_price }}</td>
+          <td>{{ order.order_status }}</td>
+          <td>
+          <form method="post" action="{% url 'update' order.id %}">
+            {% csrf_token %}
+            <select name="status">
+                <option value="ORDER_PLACED">Order Placed</option>
+                <option value="ORDER_PROCESSED">Order Processed</option>
+                <option value="ORDER_DELIVERED">Order Delivered</option>
+                <option value="ORDER_REJECTED">Order Rejected</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+        </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+</div>
+{% endblock %}

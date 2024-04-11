@@ -1,0 +1,54 @@
+{% extends 'base.html' %}    
+{% load static %}
+{% load multiply %}
+{% load totalsum %}
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<!-- Cart Items -->
+<div class="container cart">
+  {% if cart %}
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      {% for item in cart %}
+      <tr>
+        <td>
+          <div class="cart-info">
+            <img src="{{ item.product.image.url }}" alt="" />
+            <div>
+              <p>{{ item.product.title }}</p>
+              <span>{{ item.product.price }}</span> <br />
+              <a href="{% url 'remove_item' item.id %}">remove</a>
+            </div>
+          </div>
+        </td>
+        <td><input type="number" disabled value="{{ item.quantity }}" min="1" /></td>
+        <td>₹{% multiply item.product.price item.quantity %}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="total-price">
+      <table>
+        <tr>
+          <td>Total</td>
+          <td>₹{% totalsum cart %}</td>
+        </tr>
+
+      </table>
+      <input type="hidden" name="total" value="{% totalsum cart %}"/>
+      <a href="{% url 'place_orders' %}" class="checkout btn">Place Order</a>
+    </div>
+    {% else %}
+    <p>Cart is empty</p>
+    {% endif %}
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% load getstatus %}   
+{% block content %}
+
+<!-- Ordered Items -->
+<div class="container cart">
+    <table>
+      <tr>
+        <th>Prdoct</th>
+        <th>Quantity</th>
+      </tr>
+      {% for order in ordered_items %}
+      <tr>
+        <td>{{ order.product }}</td>
+        <td>{{ order.quantity }}</td>
+
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
